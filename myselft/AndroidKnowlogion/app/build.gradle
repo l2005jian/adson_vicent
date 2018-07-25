@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "cn.com.lws.androidknowlogion"
+        minSdkVersion 24
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+        multiDexEnabled = true
+
+        signingConfigs {
+            debugConfig {
+                keyAlias "key0"
+                keyPassword "123456"
+                storeFile file("/home/zoweebu3soft/keys/keys.jks")
+                storePassword "123456"
+            }
+            releaseConfig {
+                keyAlias "key0"
+                keyPassword "123456"
+                storeFile file("/home/zoweebu3soft/keys/keys.jks")
+                storePassword "123456"
+            }
+        }
+
+        buildTypes {
+
+            debug {
+                // 显示Log
+                buildConfigField "boolean", "LOG_DEBUG", "true"
+                //Zipalign优化
+                zipAlignEnabled false
+                //混淆
+                minifyEnabled false
+                signingConfig signingConfigs.debugConfig
+            }
+            release {
+                // 显示Log
+                buildConfigField "boolean", "LOG_DEBUG", "false"
+                //Zipalign优化
+                zipAlignEnabled true
+                //混淆
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.releaseConfig
+            }
+        }
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+//        //Retrofit
+//        implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+        //disklrucache
+        implementation 'com.jakewharton:disklrucache:2.0.2'
+        //optional, help to generate
+        compileOnly 'com.tencent.tinker:tinker-android-anno:1.7.5'
+        //tinker's main Android lib
+        //implementation 'com.tencent.tinker:tinker-android-lib:1.7.5'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:design:27.1.1'
+        //recyclerview
+        implementation 'com.android.support:recyclerview-v7:27.1.1'
+        implementation 'com.android.support:appcompat-v7:27.1.1'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+        testImplementation 'junit:junit:4.12'
+        // universal-image-loader
+        implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+        //picasso
+        implementation 'com.squareup.picasso:picasso:2.71828'
+        //glide
+        implementation 'com.github.bumptech.glide:glide:4.7.1'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+        //fresco
+        implementation 'com.facebook.fresco:fresco:1.9.0'
+        //volley
+        implementation 'com.mcxiaoke.volley:library:1.0.19'
+        //retrofit2
+        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+        // Okhttp库
+        implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+        //retrofit2
+        implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+        // 针对rxjava2.x（adapter-rxjava2的版本要 >= 2.2.0）
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+        //butterknife
+        implementation 'com.jakewharton:butterknife:8.8.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+        testImplementation 'org.robolectric:robolectric:3.6.1'
+        implementation 'com.facebook.stetho:stetho:1.5.0'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+        releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+        implementation "io.reactivex.rxjava2:rxjava:2.1.16"
+        implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+}
